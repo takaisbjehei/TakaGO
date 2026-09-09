@@ -1,18 +1,14 @@
 {
   "version": 2,
-  "cleanUrls": true,
+  "cleanUrls": false,
   "rewrites": [
-    {
-      "source": "/_next/(.*)",
-      "destination": "/assets/$1"
-    },
     {
       "source": "/game",
       "destination": "/game.html"
     },
     {
-      "source": "/",
-      "destination": "/index.html"
+      "source": "/_next/(.*)",
+      "destination": "/assets/$1"
     }
   ],
   "headers": [
@@ -21,6 +17,14 @@
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, HEAD, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
           "value": "*"
         }
       ]

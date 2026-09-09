@@ -1,10 +1,9 @@
 {
-  "name": "takago-local",
+  "name": "takago",
   "version": "1.0.0",
-  "description": "Counter-Strike Practice Lab running locally",
-  "main": "server.js",
+  "description": "Counter-Strike Practice Lab",
   "scripts": {
-    "start": "node server.js"
+    "dev": "node scripts/local-server.js"
   },
   "keywords": ["counter-strike", "dust2", "fps", "webgl", "threejs"],
   "license": "MIT"

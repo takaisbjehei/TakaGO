@@ -1,0 +1,727 @@
+{
+  "schema": "deadzone-native-base-clip-bank-v16",
+  "authority": "decoded native base clip samples, NOT evaluated native graph or server hitboxes",
+  "float_format": "IEEE754 little-endian float32",
+  "local_stride": 8,
+  "local_fields": [
+    "px",
+    "py",
+    "pz",
+    "qx",
+    "qy",
+    "qz",
+    "qw",
+    "scale"
+  ],
+  "world_stride": 16,
+  "world_format": "native row-vector matrices, row-major; browser point [-y,z,-x]",
+  "capsule_stride": 7,
+  "capsule_fields": [
+    "p0x_browser",
+    "p0y_browser",
+    "p0z_browser",
+    "p1x_browser",
+    "p1y_browser",
+    "p1z_browser",
+    "bone_local_radius"
+  ],
+  "frame_count": 636,
+  "bones": [
+    {
+      "index": 0,
+      "source_index": 0,
+      "name": "root_motion",
+      "parent": -1,
+      "model_index": 0
+    },
+    {
+      "index": 1,
+      "source_index": 1,
+      "name": "pelvis",
+      "parent": 0,
+      "model_index": 1
+    },
+    {
+      "index": 2,
+      "source_index": 2,
+      "name": "spine_0",
+      "parent": 1,
+      "model_index": 2
+    },
+    {
+      "index": 3,
+      "source_index": 3,
+      "name": "spine_1",
+      "parent": 2,
+      "model_index": 3
+    },
+    {
+      "index": 4,
+      "source_index": 4,
+      "name": "spine_2",
+      "parent": 3,
+      "model_index": 4
+    },
+    {
+      "index": 5,
+      "source_index": 5,
+      "name": "spine_3",
+      "parent": 4,
+      "model_index": 5
+    },
+    {
+      "index": 6,
+      "source_index": 6,
+      "name": "neck_0",
+      "parent": 5,
+      "model_index": 6
+    },
+    {
+      "index": 7,
+      "source_index": 7,
+      "name": "head_0",
+      "parent": 6,
+      "model_index": 7
+    },
+    {
+      "index": 8,
+      "source_index": 8,
+      "name": "clavicle_L",
+      "parent": 5,
+      "model_index": 8
+    },
+    {
+      "index": 9,
+      "source_index": 9,
+      "name": "arm_upper_L",
+      "parent": 8,
+      "model_index": 9
+    },
+    {
+      "index": 10,
+      "source_index": 10,
+      "name": "arm_lower_L",
+      "parent": 9,
+      "model_index": 10
+    },
+    {
+      "index": 11,
+      "source_index": 11,
+      "name": "hand_L",
+      "parent": 10,
+      "model_index": 11
+    },
+    {
+      "index": 12,
+      "source_index": 12,
+      "name": "clavicle_R",
+      "parent": 5,
+      "model_index": 12
+    },
+    {
+      "index": 13,
+      "source_index": 13,
+      "name": "arm_upper_R",
+      "parent": 12,
+      "model_index": 13
+    },
+    {
+      "index": 14,
+      "source_index": 14,
+      "name": "arm_lower_R",
+      "parent": 13,
+      "model_index": 14
+    },
+    {
+      "index": 15,
+      "source_index": 15,
+      "name": "hand_R",
+      "parent": 14,
+      "model_index": 15
+    },
+    {
+      "index": 16,
+      "source_index": 16,
+      "name": "leg_upper_L",
+      "parent": 1,
+      "model_index": 17
+    },
+    {
+      "index": 17,
+      "source_index": 17,
+      "name": "leg_lower_L",
+      "parent": 16,
+      "model_index": 18
+    },
+    {
+      "index": 18,
+      "source_index": 18,
+      "name": "ankle_L",
+      "parent": 17,
+      "model_index": 19
+    },
+    {
+      "index": 19,
+      "source_index": 19,
+      "name": "leg_upper_R",
+      "parent": 1,
+      "model_index": 20
+    },
+    {
+      "index": 20,
+      "source_index": 20,
+      "name": "leg_lower_R",
+      "parent": 19,
+      "model_index": 21
+    },
+    {
+      "index": 21,
+      "source_index": 21,
+      "name": "ankle_R",
+      "parent": 20,
+      "model_index": 22
+    }
+  ],
+  "capsules": [
+    {
+      "index": 0,
+      "bone": 7,
+      "native_group": 1,
+      "point0": [
+        -1,
+        1.7999999523162842,
+        0
+      ],
+      "point1": [
+        3.5,
+        0.20000000298023224,
+        0
+      ],
+      "radius": 4.300000190734863
+    },
+    {
+      "index": 1,
+      "bone": 6,
+      "native_group": 8,
+      "point0": [
+        0,
+        -0.4000000059604645,
+        0
+      ],
+      "point1": [
+        1.399999976158142,
+        -0.20000000298023224,
+        0
+      ],
+      "radius": 3.5
+    },
+    {
+      "index": 2,
+      "bone": 1,
+      "native_group": 3,
+      "point0": [
+        -2.700000047683716,
+        1.100000023841858,
+        -3.200000047683716
+      ],
+      "point1": [
+        -2.700000047683716,
+        1.100000023841858,
+        3.200000047683716
+      ],
+      "radius": 6
+    },
+    {
+      "index": 3,
+      "bone": 2,
+      "native_group": 3,
+      "point0": [
+        1.399999976158142,
+        0.800000011920929,
+        3.0999999046325684
+      ],
+      "point1": [
+        1.399999976158142,
+        0.800000011920929,
+        -3.0999999046325684
+      ],
+      "radius": 6
+    },
+    {
+      "index": 4,
+      "bone": 3,
+      "native_group": 2,
+      "point0": [
+        3.799999952316284,
+        0.800000011920929,
+        -2.4000000953674316
+      ],
+      "point1": [
+        3.799999952316284,
+        0.4000000059604645,
+        2.4000000953674316
+      ],
+      "radius": 6.5
+    },
+    {
+      "index": 5,
+      "bone": 4,
+      "native_group": 2,
+      "point0": [
+        4.800000190734863,
+        0.15000000596046448,
+        -4.099999904632568
+      ],
+      "point1": [
+        4.800000190734863,
+        0.15000000596046448,
+        4.099999904632568
+      ],
+      "radius": 6.199999809265137
+    },
+    {
+      "index": 6,
+      "bone": 5,
+      "native_group": 2,
+      "point0": [
+        2.5,
+        -0.6000000238418579,
+        -6
+      ],
+      "point1": [
+        2.5,
+        -0.6000000238418579,
+        6
+      ],
+      "radius": 5
+    },
+    {
+      "index": 7,
+      "bone": 16,
+      "native_group": 6,
+      "point0": [
+        1.2999999523162842,
+        -0.20000000298023224,
+        0
+      ],
+      "point1": [
+        16.5,
+        -0.699999988079071,
+        0
+      ],
+      "radius": 5
+    },
+    {
+      "index": 8,
+      "bone": 19,
+      "native_group": 7,
+      "point0": [
+        -1.2999999523162842,
+        0,
+        -0.6000000238418579
+      ],
+      "point1": [
+        -16.5,
+        0,
+        -0.699999988079071
+      ],
+      "radius": 5
+    },
+    {
+      "index": 9,
+      "bone": 17,
+      "native_group": 6,
+      "point0": [
+        0.10000000149011612,
+        -0.4000000059604645,
+        0.20000000298023224
+      ],
+      "point1": [
+        17,
+        -0.4000000059604645,
+        0.699999988079071
+      ],
+      "radius": 4
+    },
+    {
+      "index": 10,
+      "bone": 20,
+      "native_group": 7,
+      "point0": [
+        -0.10000000149011612,
+        0,
+        -0.20000000298023224
+      ],
+      "point1": [
+        -17,
+        0.4000000059604645,
+        -0.699999988079071
+      ],
+      "radius": 4
+    },
+    {
+      "index": 11,
+      "bone": 18,
+      "native_group": 6,
+      "point0": [
+        -0,
+        -3.430000066757202,
+        -0.5199999809265137
+      ],
+      "point1": [
+        8,
+        0.7400000095367432,
+        0.33000001311302185
+      ],
+      "radius": 2.5999999046325684
+    },
+    {
+      "index": 12,
+      "bone": 21,
+      "native_group": 7,
+      "point0": [
+        -7.980000019073486,
+        -0.75,
+        -0.27000001072883606
+      ],
+      "point1": [
+        -0.019999999552965164,
+        3.440000057220459,
+        0.5799999833106995
+      ],
+      "radius": 2.5999999046325684
+    },
+    {
+      "index": 13,
+      "bone": 11,
+      "native_group": 4,
+      "point0": [
+        0,
+        0.30000001192092896,
+        0
+      ],
+      "point1": [
+        3.5899999141693115,
+        1.149999976158142,
+        0.10999999940395355
+      ],
+      "radius": 2.299999952316284
+    },
+    {
+      "index": 14,
+      "bone": 15,
+      "native_group": 5,
+      "point0": [
+        0,
+        -0.30000001192092896,
+        0.019999999552965164
+      ],
+      "point1": [
+        -3.440000057220459,
+        -1.1699999570846558,
+        -0.09000000357627869
+      ],
+      "radius": 2.299999952316284
+    },
+    {
+      "index": 15,
+      "bone": 9,
+      "native_group": 4,
+      "point0": [
+        0,
+        0,
+        0
+      ],
+      "point1": [
+        11.199999809265137,
+        0,
+        0
+      ],
+      "radius": 3.299999952316284
+    },
+    {
+      "index": 16,
+      "bone": 10,
+      "native_group": 4,
+      "point0": [
+        0,
+        0,
+        0
+      ],
+      "point1": [
+        10,
+        0,
+        0
+      ],
+      "radius": 3
+    },
+    {
+      "index": 17,
+      "bone": 13,
+      "native_group": 5,
+      "point0": [
+        0,
+        0,
+        0
+      ],
+      "point1": [
+        -11.199999809265137,
+        0,
+        0
+      ],
+      "radius": 3.299999952316284
+    },
+    {
+      "index": 18,
+      "bone": 14,
+      "native_group": 5,
+      "point0": [
+        0,
+        0,
+        0
+      ],
+      "point1": [
+        -10,
+        0,
+        -0.5
+      ],
+      "radius": 3
+    }
+  ],
+  "clips": [
+    {
+      "name": "crouch_e_rifle",
+      "frames": 25,
+      "fps": 30.000001907348633,
+      "duration": 0.7999999523162842,
+      "additive": false,
+      "frame_offset": 0,
+      "root_motion": []
+    },
+    {
+      "name": "crouch_n_rifle",
+      "frames": 25,
+      "fps": 30.000001907348633,
+      "duration": 0.7999999523162842,
+      "additive": false,
+      "frame_offset": 25,
+      "root_motion": []
+    },
+    {
+      "name": "crouch_ne_rifle",
+      "frames": 25,
+      "fps": 30.000001907348633,
+      "duration": 0.7999999523162842,
+      "additive": false,
+      "frame_offset": 50,
+      "root_motion": []
+    },
+    {
+      "name": "crouch_nw_rifle",
+      "frames": 25,
+      "fps": 30.000001907348633,
+      "duration": 0.7999999523162842,
+      "additive": false,
+      "frame_offset": 75,
+      "root_motion": []
+    },
+    {
+      "name": "crouch_s_rifle",
+      "frames": 25,
+      "fps": 30.000001907348633,
+      "duration": 0.7999999523162842,
+      "additive": false,
+      "frame_offset": 100,
+      "root_motion": []
+    },
+    {
+      "name": "crouch_se_rifle",
+      "frames": 25,
+      "fps": 30.000001907348633,
+      "duration": 0.7999999523162842,
+      "additive": false,
+      "frame_offset": 125,
+      "root_motion": []
+    },
+    {
+      "name": "crouch_sw_rifle",
+      "frames": 25,
+      "fps": 30.000001907348633,
+      "duration": 0.7999999523162842,
+      "additive": false,
+      "frame_offset": 150,
+      "root_motion": []
+    },
+    {
+      "name": "crouch_w_rifle",
+      "frames": 25,
+      "fps": 30.000001907348633,
+      "duration": 0.7999999523162842,
+      "additive": false,
+      "frame_offset": 175,
+      "root_motion": []
+    },
+    {
+      "name": "idle_crouch_rifle",
+      "frames": 2,
+      "fps": 1.3698630332946777,
+      "duration": 0.7300000190734863,
+      "additive": false,
+      "frame_offset": 200,
+      "root_motion": []
+    },
+    {
+      "name": "idle_rifle",
+      "frames": 2,
+      "fps": 1.3698630332946777,
+      "duration": 0.7300000190734863,
+      "additive": false,
+      "frame_offset": 202,
+      "root_motion": []
+    },
+    {
+      "name": "run_e_rifle",
+      "frames": 23,
+      "fps": 30.001365661621094,
+      "duration": 0.733299970626831,
+      "additive": false,
+      "frame_offset": 204,
+      "root_motion": []
+    },
+    {
+      "name": "run_n_rifle",
+      "frames": 23,
+      "fps": 30.001365661621094,
+      "duration": 0.733299970626831,
+      "additive": false,
+      "frame_offset": 227,
+      "root_motion": []
+    },
+    {
+      "name": "run_ne_rifle",
+      "frames": 23,
+      "fps": 30.001365661621094,
+      "duration": 0.733299970626831,
+      "additive": false,
+      "frame_offset": 250,
+      "root_motion": []
+    },
+    {
+      "name": "run_nw_rifle",
+      "frames": 23,
+      "fps": 30.001365661621094,
+      "duration": 0.733299970626831,
+      "additive": false,
+      "frame_offset": 273,
+      "root_motion": []
+    },
+    {
+      "name": "run_s_rifle",
+      "frames": 23,
+      "fps": 30.001365661621094,
+      "duration": 0.733299970626831,
+      "additive": false,
+      "frame_offset": 296,
+      "root_motion": []
+    },
+    {
+      "name": "run_se_rifle",
+      "frames": 23,
+      "fps": 30.001365661621094,
+      "duration": 0.733299970626831,
+      "additive": false,
+      "frame_offset": 319,
+      "root_motion": []
+    },
+    {
+      "name": "run_sw_rifle",
+      "frames": 23,
+      "fps": 30.001365661621094,
+      "duration": 0.733299970626831,
+      "additive": false,
+      "frame_offset": 342,
+      "root_motion": []
+    },
+    {
+      "name": "run_w_rifle",
+      "frames": 23,
+      "fps": 30.001365661621094,
+      "duration": 0.733299970626831,
+      "additive": false,
+      "frame_offset": 365,
+      "root_motion": []
+    },
+    {
+      "name": "walk_e_rifle",
+      "frames": 31,
+      "fps": 30,
+      "duration": 1,
+      "additive": false,
+      "frame_offset": 388,
+      "root_motion": []
+    },
+    {
+      "name": "walk_n_rifle",
+      "frames": 31,
+      "fps": 30,
+      "duration": 1,
+      "additive": false,
+      "frame_offset": 419,
+      "root_motion": []
+    },
+    {
+      "name": "walk_ne_rifle",
+      "frames": 31,
+      "fps": 30,
+      "duration": 1,
+      "additive": false,
+      "frame_offset": 450,
+      "root_motion": []
+    },
+    {
+      "name": "walk_nw_rifle",
+      "frames": 31,
+      "fps": 30,
+      "duration": 1,
+      "additive": false,
+      "frame_offset": 481,
+      "root_motion": []
+    },
+    {
+      "name": "walk_s_rifle",
+      "frames": 31,
+      "fps": 30,
+      "duration": 1,
+      "additive": false,
+      "frame_offset": 512,
+      "root_motion": []
+    },
+    {
+      "name": "walk_se_rifle",
+      "frames": 31,
+      "fps": 30,
+      "duration": 1,
+      "additive": false,
+      "frame_offset": 543,
+      "root_motion": []
+    },
+    {
+      "name": "walk_sw_rifle",
+      "frames": 31,
+      "fps": 30,
+      "duration": 1,
+      "additive": false,
+      "frame_offset": 574,
+      "root_motion": []
+    },
+    {
+      "name": "walk_w_rifle",
+      "frames": 31,
+      "fps": 30,
+      "duration": 1,
+      "additive": false,
+      "frame_offset": 605,
+      "root_motion": []
+    }
+  ]
+}

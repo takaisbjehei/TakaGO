@@ -1,0 +1,1094 @@
+{
+  "schema": "deadzone-native-world-v1",
+  "map": "de_dust2",
+  "client_version": "2000899",
+  "patch_version": "1.41.7.8",
+  "depot": 2347770,
+  "depot_manifest": "6839025807341874757",
+  "coordinate_system": "browser [-SourceY,SourceZ,-SourceX]; Source units; +Y up",
+  "scale": 1,
+  "triangle_count": 435649,
+  "render_triangle_count": 420724,
+  "render_vertices": 238460,
+  "bounds": [
+    [
+      -4608.0,
+      -320.0,
+      -3584.0
+    ],
+    [
+      2496.0,
+      1174.0,
+      4736.0
+    ]
+  ],
+  "groups": [
+    {
+      "id": 0,
+      "name": "physics_group_concrete",
+      "surface_property": "concrete",
+      "interact_as": [],
+      "first_triangle": 0,
+      "triangle_count": 294418,
+      "bounds": [
+        [
+          -4608.0,
+          -320.0,
+          -3584.0
+        ],
+        [
+          2496.0,
+          964.0,
+          4736.0
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "concrete",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 1,
+      "name": "physics_group_wood",
+      "surface_property": "wood",
+      "interact_as": [],
+      "first_triangle": 294418,
+      "triangle_count": 12222,
+      "bounds": [
+        [
+          -3101.827392578125,
+          -6.257205486297607,
+          -1979.4908447265625
+        ],
+        [
+          1056.0,
+          894.4544067382812,
+          2256.0
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "wood",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 2,
+      "name": "physics_group_chainlink",
+      "surface_property": "chainlink",
+      "interact_as": [],
+      "first_triangle": 306640,
+      "triangle_count": 528,
+      "bounds": [
+        [
+          -3084.1640625,
+          -6.41253662109375,
+          -1798.1639404296875
+        ],
+        [
+          957.9125366210938,
+          250.91253662109375,
+          2231.1640625
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "chainlink",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 3,
+      "name": "physics_group_wood_panel",
+      "surface_property": "wood_panel",
+      "interact_as": [],
+      "first_triangle": 307168,
+      "triangle_count": 7312,
+      "bounds": [
+        [
+          -3134.453369140625,
+          -129.0,
+          -1787.988525390625
+        ],
+        [
+          1086.5,
+          268.0,
+          2322.213623046875
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "wood_panel",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 4,
+      "name": "physics_group_metal_sand_barrel",
+      "surface_property": "metal_sand_barrel",
+      "interact_as": [],
+      "first_triangle": 314480,
+      "triangle_count": 1080,
+      "bounds": [
+        [
+          -2797.595458984375,
+          -1.0077279806137085,
+          -843.014404296875
+        ],
+        [
+          214.03109741210938,
+          175.03268432617188,
+          1858.83251953125
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "metal_sand_barrel",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 5,
+      "name": "physics_group_glass",
+      "surface_property": "glass",
+      "interact_as": [],
+      "first_triangle": 315560,
+      "triangle_count": 2480,
+      "bounds": [
+        [
+          -3007.500244140625,
+          -17.599365234375,
+          -1974.500244140625
+        ],
+        [
+          1040.0,
+          892.4999389648438,
+          2246.0
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "glass",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 6,
+      "name": "physics_group_metal",
+      "surface_property": "metal",
+      "interact_as": [],
+      "first_triangle": 318040,
+      "triangle_count": 15792,
+      "bounds": [
+        [
+          -3116.03466796875,
+          -101.95001220703125,
+          -1959.5999755859375
+        ],
+        [
+          1194.0736083984375,
+          728.4078369140625,
+          2236.7548828125
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "metal",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 7,
+      "name": "physics_group_rock",
+      "surface_property": "rock",
+      "interact_as": [],
+      "first_triangle": 333832,
+      "triangle_count": 18222,
+      "bounds": [
+        [
+          -3150.1171875,
+          -5.090274333953857,
+          -2143.0
+        ],
+        [
+          1155.559326171875,
+          598.2637939453125,
+          2436.0
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "rock",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 8,
+      "name": "physics_group_dirt",
+      "surface_property": "dirt",
+      "interact_as": [],
+      "first_triangle": 352054,
+      "triangle_count": 13710,
+      "bounds": [
+        [
+          -2888.684814453125,
+          -87.02348327636719,
+          254.77978515625
+        ],
+        [
+          139.93247985839844,
+          134.67520141601562,
+          2128.067138671875
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "dirt",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 9,
+      "name": "physics_group",
+      "surface_property": "default",
+      "interact_as": [],
+      "first_triangle": 365764,
+      "triangle_count": 408,
+      "bounds": [
+        [
+          -3876.0,
+          288.0,
+          -882.0
+        ],
+        [
+          -2972.0,
+          548.0,
+          -128.0
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "default",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 10,
+      "name": "physics_group_carpet",
+      "surface_property": "carpet",
+      "interact_as": [],
+      "first_triangle": 366172,
+      "triangle_count": 1140,
+      "bounds": [
+        [
+          -1813.0455322265625,
+          119.6927490234375,
+          -1680.0574951171875
+        ],
+        [
+          1072.0,
+          301.04052734375,
+          1319.397705078125
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "carpet",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 11,
+      "name": "physics_group_solidmetal",
+      "surface_property": "solidmetal",
+      "interact_as": [],
+      "first_triangle": 367312,
+      "triangle_count": 5492,
+      "bounds": [
+        [
+          -3020.0,
+          -116.86355590820312,
+          -1624.97998046875
+        ],
+        [
+          1197.0,
+          262.0000305175781,
+          2211.0
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "solidmetal",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 12,
+      "name": "physics_group_metalpanel",
+      "surface_property": "metalpanel",
+      "interact_as": [],
+      "first_triangle": 372804,
+      "triangle_count": 492,
+      "bounds": [
+        [
+          -2724.26513671875,
+          -116.20681762695312,
+          -1232.5927734375
+        ],
+        [
+          1071.7410888671875,
+          271.1618957519531,
+          1865.722412109375
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "metalpanel",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 13,
+      "name": "physics_group_plastic",
+      "surface_property": "plastic",
+      "interact_as": [],
+      "first_triangle": 373296,
+      "triangle_count": 12,
+      "bounds": [
+        [
+          502.3367004394531,
+          192.35797119140625,
+          1022.4287719726562
+        ],
+        [
+          505.7320251464844,
+          195.83200073242188,
+          1036.3614501953125
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "plastic",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 14,
+      "name": "physics_group_wood_dense",
+      "surface_property": "wood_dense",
+      "interact_as": [],
+      "first_triangle": 373308,
+      "triangle_count": 1684,
+      "bounds": [
+        [
+          -2590.6982421875,
+          -187.34066772460938,
+          -1536.52490234375
+        ],
+        [
+          -162.77101135253906,
+          216.2561492919922,
+          2209.22900390625
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "wood_dense",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 15,
+      "name": "physics_group_wood_plank",
+      "surface_property": "wood_plank",
+      "interact_as": [],
+      "first_triangle": 374992,
+      "triangle_count": 6936,
+      "bounds": [
+        [
+          -2725.46142578125,
+          -134.05812072753906,
+          -508.6552429199219
+        ],
+        [
+          183.43492126464844,
+          325.572509765625,
+          1866.48046875
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "wood_plank",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 16,
+      "name": "physics_group_vrf_unknown_key_2838185980",
+      "surface_property": "vrf_unknown_key_2838185980",
+      "interact_as": [],
+      "first_triangle": 381928,
+      "triangle_count": 144,
+      "bounds": [
+        [
+          1024.231201171875,
+          128.25,
+          420.5194091796875
+        ],
+        [
+          1070.7298583984375,
+          170.43919372558594,
+          550.4801025390625
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "vrf_unknown_key_2838185980",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 17,
+      "name": "physics_group_metal_dumpster",
+      "surface_property": "metal_dumpster",
+      "interact_as": [],
+      "first_triangle": 382072,
+      "triangle_count": 1120,
+      "bounds": [
+        [
+          -1212.81005859375,
+          -1.9073486328125e-06,
+          -897.5170288085938
+        ],
+        [
+          125.85556030273438,
+          122.71876525878906,
+          1465.50146484375
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "metal_dumpster",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 18,
+      "name": "physics_group_rubbertire",
+      "surface_property": "rubbertire",
+      "interact_as": [],
+      "first_triangle": 383192,
+      "triangle_count": 1024,
+      "bounds": [
+        [
+          -2559.415771484375,
+          -119.60480499267578,
+          -871.5411987304688
+        ],
+        [
+          643.197509765625,
+          164.50376892089844,
+          1299.197509765625
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "rubbertire",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 19,
+      "name": "physics_group_metalvehicle",
+      "surface_property": "metalvehicle",
+      "interact_as": [],
+      "first_triangle": 384216,
+      "triangle_count": 2876,
+      "bounds": [
+        [
+          -2557.365478515625,
+          -74.33894348144531,
+          -1750.0819091796875
+        ],
+        [
+          940.2677001953125,
+          192.26852416992188,
+          2036.5450439453125
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "metalvehicle",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 20,
+      "name": "physics_group_metalvent",
+      "surface_property": "metalvent",
+      "interact_as": [],
+      "first_triangle": 387092,
+      "triangle_count": 24,
+      "bounds": [
+        [
+          -2540.806396484375,
+          -64.87088775634766,
+          519.7854614257812
+        ],
+        [
+          -2476.598876953125,
+          -29.423336029052734,
+          596.7926635742188
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "metalvent",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 21,
+      "name": "physics_group_wood_crate",
+      "surface_property": "wood_crate",
+      "interact_as": [],
+      "first_triangle": 387116,
+      "triangle_count": 732,
+      "bounds": [
+        [
+          -2776.599609375,
+          7.999999523162842,
+          -779.1128540039062
+        ],
+        [
+          704.08935546875,
+          255.1953582763672,
+          1149.1129150390625
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "wood_crate",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 22,
+      "name": "physics_group_wood_basket",
+      "surface_property": "wood_basket",
+      "interact_as": [],
+      "first_triangle": 387848,
+      "triangle_count": 5280,
+      "bounds": [
+        [
+          -2780.3720703125,
+          96.0,
+          -795.2657470703125
+        ],
+        [
+          -2424.7236328125,
+          137.59375,
+          -261.7342834472656
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "wood_basket",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 23,
+      "name": "physics_group_pottery",
+      "surface_property": "pottery",
+      "interact_as": [],
+      "first_triangle": 393128,
+      "triangle_count": 352,
+      "bounds": [
+        [
+          162.1306915283203,
+          127.98799896240234,
+          960.2981567382812
+        ],
+        [
+          205.96278381347656,
+          149.4879913330078,
+          1001.292236328125
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "pottery",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 24,
+      "name": "physics_group_wood_solid",
+      "surface_property": "wood_solid",
+      "interact_as": [],
+      "first_triangle": 393480,
+      "triangle_count": 484,
+      "bounds": [
+        [
+          -2572.10009765625,
+          -130.98199462890625,
+          -719.7548828125
+        ],
+        [
+          -288.9935302734375,
+          281.34130859375,
+          236.4820098876953
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "wood_solid",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 25,
+      "name": "physics_group_tile",
+      "surface_property": "tile",
+      "interact_as": [],
+      "first_triangle": 393964,
+      "triangle_count": 44,
+      "bounds": [
+        [
+          652.5709838867188,
+          350.364013671875,
+          547.2459716796875
+        ],
+        [
+          706.5709838867188,
+          426.364013671875,
+          558.4959716796875
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "tile",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 26,
+      "name": "physics_group_sand",
+      "surface_property": "sand",
+      "interact_as": [],
+      "first_triangle": 394008,
+      "triangle_count": 3570,
+      "bounds": [
+        [
+          -2859.812744140625,
+          94.9710693359375,
+          -1360.7188720703125
+        ],
+        [
+          -2687.121337890625,
+          166.7801971435547,
+          -818.6534423828125
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "sand",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 27,
+      "name": "physics_group_wood_tree",
+      "surface_property": "wood_tree",
+      "interact_as": [],
+      "first_triangle": 397578,
+      "triangle_count": 6822,
+      "bounds": [
+        [
+          -3259.051513671875,
+          -51.710044860839844,
+          -2043.7659912109375
+        ],
+        [
+          1282.8612060546875,
+          360.6617126464844,
+          2235.396240234375
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "wood_tree",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 28,
+      "name": "physics_passbullets_chainlink",
+      "surface_property": "chainlink",
+      "interact_as": [
+        "passbullets"
+      ],
+      "first_triangle": 404400,
+      "triangle_count": 288,
+      "bounds": [
+        [
+          -1069.8265380859375,
+          -0.41431427001953125,
+          -1797.4251708984375
+        ],
+        [
+          1189.3358154296875,
+          265.7167053222656,
+          2232.215087890625
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "chainlink",
+        "InteractAs": [
+          "passbullets"
+        ]
+      }
+    },
+    {
+      "id": 29,
+      "name": "physics_passbullets_pottery",
+      "surface_property": "pottery",
+      "interact_as": [
+        "passbullets"
+      ],
+      "first_triangle": 404688,
+      "triangle_count": 42,
+      "bounds": [
+        [
+          -4224.0,
+          468.49798583984375,
+          -2735.348876953125
+        ],
+        [
+          -1335.8304443359375,
+          927.25,
+          -254.0
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "pottery",
+        "InteractAs": [
+          "passbullets"
+        ]
+      }
+    },
+    {
+      "id": 30,
+      "name": "physics_npcclip_playerclip_wood",
+      "surface_property": "wood",
+      "interact_as": [
+        "npcclip",
+        "playerclip"
+      ],
+      "first_triangle": 404730,
+      "triangle_count": 144,
+      "bounds": [
+        [
+          -3018.0,
+          -7.62939453125e-06,
+          -1719.0
+        ],
+        [
+          156.00001525878906,
+          411.0,
+          2184.0
+        ]
+      ],
+      "rendered": false,
+      "native_node_extras": {
+        "SurfaceProperty": "wood",
+        "InteractAs": [
+          "npcclip",
+          "playerclip"
+        ]
+      }
+    },
+    {
+      "id": 31,
+      "name": "physics_npcclip_playerclip",
+      "surface_property": "default",
+      "interact_as": [
+        "npcclip",
+        "playerclip"
+      ],
+      "first_triangle": 404874,
+      "triangle_count": 12195,
+      "bounds": [
+        [
+          -3204.0,
+          -232.0,
+          -1868.0
+        ],
+        [
+          1200.0,
+          820.0,
+          2312.0
+        ]
+      ],
+      "rendered": false,
+      "native_node_extras": {
+        "SurfaceProperty": "default",
+        "InteractAs": [
+          "npcclip",
+          "playerclip"
+        ]
+      }
+    },
+    {
+      "id": 32,
+      "name": "physics_group_wood",
+      "surface_property": "wood",
+      "interact_as": [],
+      "first_triangle": 417069,
+      "triangle_count": 14194,
+      "bounds": [
+        [
+          -3018.485107421875,
+          -82.01937866210938,
+          -1719.485107421875
+        ],
+        [
+          156.75375366210938,
+          411.0,
+          2184.0
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "wood",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 33,
+      "name": "physics_group_metal",
+      "surface_property": "metal",
+      "interact_as": [],
+      "first_triangle": 431263,
+      "triangle_count": 756,
+      "bounds": [
+        [
+          -3083.0,
+          33.617733001708984,
+          -1647.215576171875
+        ],
+        [
+          1056.0,
+          450.215576171875,
+          2226.0
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "metal",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 34,
+      "name": "physics_group_metalpanel",
+      "surface_property": "metalpanel",
+      "interact_as": [],
+      "first_triangle": 432019,
+      "triangle_count": 192,
+      "bounds": [
+        [
+          -2880.36767578125,
+          -2.0,
+          1715.2669677734375
+        ],
+        [
+          -2427.266845703125,
+          65.04039764404297,
+          2128.657958984375
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "metalpanel",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 35,
+      "name": "physics_group_wood_plank",
+      "surface_property": "wood_plank",
+      "interact_as": [],
+      "first_triangle": 432211,
+      "triangle_count": 816,
+      "bounds": [
+        [
+          -2784.472412109375,
+          -2.0735549926757812,
+          1715.2669677734375
+        ],
+        [
+          -2426.3603515625,
+          65.04041290283203,
+          2032.1619873046875
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "wood_plank",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 36,
+      "name": "physics_group_computer",
+      "surface_property": "computer",
+      "interact_as": [],
+      "first_triangle": 433027,
+      "triangle_count": 36,
+      "bounds": [
+        [
+          -1658.007568359375,
+          46.3154296875,
+          -1235.635009765625
+        ],
+        [
+          1056.0,
+          183.6890106201172,
+          2186.007568359375
+        ]
+      ],
+      "rendered": true,
+      "native_node_extras": {
+        "SurfaceProperty": "computer",
+        "InteractAs": []
+      }
+    },
+    {
+      "id": 37,
+      "name": "physics_csgo_grenadeclip",
+      "surface_property": "default",
+      "interact_as": [
+        "csgo_grenadeclip"
+      ],
+      "first_triangle": 433063,
+      "triangle_count": 2320,
+      "bounds": [
+        [
+          -3429.0,
+          -130.0,
+          -1835.0
+        ],
+        [
+          1184.0,
+          808.0,
+          2410.0
+        ]
+      ],
+      "rendered": false,
+      "native_node_extras": {
+        "SurfaceProperty": "default",
+        "InteractAs": [
+          "csgo_grenadeclip"
+        ]
+      }
+    },
+    {
+      "id": 38,
+      "name": "physics_sky",
+      "surface_property": "default",
+      "interact_as": [
+        "sky"
+      ],
+      "first_triangle": 435383,
+      "triangle_count": 266,
+      "bounds": [
+        [
+          -4608.0,
+          -32.0,
+          -3584.0
+        ],
+        [
+          2496.0,
+          1174.0,
+          4736.0
+        ]
+      ],
+      "rendered": false,
+      "native_node_extras": {
+        "SurfaceProperty": "default",
+        "InteractAs": [
+          "sky"
+        ]
+      }
+    }
+  ],
+  "source_vpk_sha256": "51d6bb432b6553bfae6c38219a527c5de2464a2b107080f2b8be7d8427ebb885",
+  "native_physics_glb_sha256": "5192b948cadd218b094c4bfe1159810fe3e560bcc8fa581828091283e6fdd395",
+  "native_nav_sha256": "64bbc202edae8a92d432368e86948bbee3af9c56555e190dda251d28c64e1ea7",
+  "nav_matches_awpy_release": true,
+  "nav_area_count": 2242,
+  "native_spawn_count": 30,
+  "conversion": {
+    "decimated": false,
+    "quantized": false,
+    "source_positions": "Raw float32 POSITION in VRF20 world physics GLB is native Source XYZ; decorative node meter transforms intentionally replaced.",
+    "render_welding": "Exact POSITION tuples only; NORMAL omitted for flat shading",
+    "collision_triangle_layout": "LE float32, triangle-major xyz xyz xyz, browser coordinates",
+    "group_id_layout": "LE unsigned uint16, one group id per triangle",
+    "native_metadata": "SurfaceProperty and InteractAs retained verbatim; groups are collision categories, not engine body ids."
+  },
+  "limitations": [
+    "This is the native static world PHYSICS mesh, not the full visual-art mesh. It includes baked static prop physics (wood crates, vehicles, barrels, doors etc).",
+    "The runtime solver and collision mask choices must still be implemented/validated; preserving geometry does not prove solver parity.",
+    "Dynamic entity props are listed in dust2-entity-audit.json and are not simulated by this static export.",
+    "GLB uses original simple colors based on surface category; no Valve texture files included."
+  ],
+  "sources": {
+    "valve_terms": "https://store.steampowered.com/subscriber_agreement/",
+    "exporter": "https://github.com/ValveResourceFormat/ValveResourceFormat/releases/tag/20.0",
+    "map_download_tool": "https://github.com/SteamRE/DepotDownloader/releases/tag/DepotDownloader_3.4.0",
+    "awpy_reference": "https://github.com/pnxenopoulos/awpy-data/releases/tag/2000899"
+  },
+  "files": {
+    "dust2-world.glb": {
+      "bytes": 7936972,
+      "gzip_bytes": 3081086,
+      "sha256": "9d5e7a90c94b73f9468b6f23b0ab1732262ca88dec6295a5fe32a22b4a6b2252"
+    },
+    "dust2-triangles.f32": {
+      "bytes": 15683364,
+      "gzip_bytes": 3079252,
+      "sha256": "b0d71fa9a34a60b4c2c9bd3d5554671947649278d89eac18c5eebefb3939df14"
+    },
+    "dust2-groups.u16": {
+      "bytes": 871298,
+      "gzip_bytes": 973,
+      "sha256": "15c60022a80262652210ab9c345adda1e9c84af812bd08281ea568dc62ec618e"
+    },
+    "dust2-nav.json": {
+      "bytes": 1046552,
+      "gzip_bytes": 108834,
+      "sha256": "6542e810aa1ad7a0b6c9f2ccf8addd1bc8dcdc462652e09a75b1e603ef98058d"
+    },
+    "dust2-spawns.json": {
+      "bytes": 9616,
+      "gzip_bytes": 1374,
+      "sha256": "98ebf110bc57d10e1c54846fdb6b1a8a0a7c18dfd0ae4820a69e61413a24c920"
+    },
+    "dust2-entity-audit.json": {
+      "bytes": 6392,
+      "gzip_bytes": 1291,
+      "sha256": "555f8d13f2ee5946bc4769b904f8b4314627f21bdc1c486b731f2ed68eca300b"
+    },
+    "steam.inf": {
+      "bytes": 190,
+      "gzip_bytes": 157,
+      "sha256": "d41d10dbdf6c0b03b8e0727339934155329dbb319fb46ea114af20b053746ebc"
+    }
+  }
+}

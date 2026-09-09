@@ -3,6 +3,10 @@
   "cleanUrls": true,
   "rewrites": [
     {
+      "source": "/_next/(.*)",
+      "destination": "/assets/$1"
+    },
+    {
       "source": "/game",
       "destination": "/game.html"
     },
@@ -36,6 +40,24 @@
         {
           "key": "Content-Type",
           "value": "font/woff2"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.css",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/css; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.js",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/javascript; charset=utf-8"
         }
       ]
     }

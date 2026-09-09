@@ -1,5 +1,5 @@
 /**
- * TakaGO Low-Latency Multiplayer & Gun Tracing System
+ * TakaGO Low-Latency Multiplayer, Gun Tracing & ESP Locator System
  * Powered by Supabase Realtime Channels (WebSocket Broadcast & Presence)
  */
 (function() {
@@ -32,9 +32,30 @@
 
   // Remote Players state map
   const remotePlayers = new Map(); // id -> state
+  window.__takaRemotePlayers = remotePlayers;
   let supabase = null;
   let channel = null;
   let isSubscribed = false;
+  let espEnabled = true;
+
+  // Purge offline AI bots so only human players exist
+  function purgeOfflineBots() {
+    if (window.__takaSim && window.__takaSim.bots) {
+      window.__takaSim.bots = window.__takaSim.bots.filter(b => b.isRemote);
+    }
+    if (window.__takaRenderer && window.__takaRenderer.actors) {
+      for (const [id, actor] of window.__takaRenderer.actors.entries()) {
+        if (id !== 0) {
+          const isRemote = Array.from(remotePlayers.values()).some(rp => rp.entityId === id);
+          if (!isRemote) {
+            window.__takaRenderer.scene?.remove(actor);
+            window.__takaRenderer.actors.delete(id);
+            window.__takaRenderer.posedRigs?.delete(id);
+          }
+        }
+      }
+    }
+  }
 
   // 2. First-Time Username Modal Management
   function promptUsernameIfNeeded(onComplete) {
@@ -105,6 +126,18 @@
     });
   };
 
+  // Toggle ESP Wallhack
+  window.__takaToggleESP = function() {
+    espEnabled = !espEnabled;
+    const lbl = document.getElementById('taka-esp-label');
+    const ind = document.getElementById('taka-esp-indicator');
+    if (lbl) lbl.textContent = espEnabled ? 'ESP: ON' : 'ESP: OFF';
+    if (ind) {
+      ind.style.background = espEnabled ? '#00ff88' : '#ef4444';
+      ind.style.boxShadow = espEnabled ? '0 0 8px #00ff88' : 'none';
+    }
+  };
+
   // 3. UI Status Badges
   function updatePlayerBadge() {
     const badge = document.getElementById('taka-callsign-badge');
@@ -128,7 +161,7 @@
       return;
     }
 
-    if (channel) return; // Already initializing or initialized
+    if (channel) return;
 
     try {
       supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -137,7 +170,6 @@
       return;
     }
 
-    // Zero-delay WebSocket broadcast channel
     channel = supabase.channel(ROOM_NAME, {
       config: {
         broadcast: { ack: false, self: false },
@@ -159,7 +191,6 @@
         const id = p.id || p.key;
         if (remotePlayers.has(id)) {
           const remote = remotePlayers.get(id);
-          // Remove 3D rig from renderer if present
           if (window.__takaRenderer) {
             const rig = window.__takaRenderer.posedRigs?.get(remote.entityId);
             if (rig) {
@@ -169,7 +200,6 @@
               window.__takaRenderer.actors?.delete(remote.entityId);
             }
           }
-          // Remove from engine bots
           if (window.__takaSim && window.__takaSim.bots) {
             const idx = window.__takaSim.bots.findIndex(b => b.remoteId === id);
             if (idx !== -1) {
@@ -197,12 +227,10 @@
     channel.on('broadcast', { event: 'hit' }, ({ payload }) => {
       if (!payload) return;
       if (payload.targetId === myNumericId && window.__takaSim && window.__takaSim.player) {
-        // Local player was shot by another player!
         const player = window.__takaSim.player;
         if (player.health > 0) {
           player.health = Math.max(0, player.health - (payload.damage || 25));
           if (player.health <= 0) {
-            // Player died
             window.__takaSim.emit({
               type: 'death',
               target: 0,
@@ -252,11 +280,11 @@
       }
     });
 
-    // Start outgoing position broadcast loop @ 30Hz
     startOutgoingBroadcastLoop();
   }
 
   // 9. Handle incoming remote position
+  window.__takaHandleRemotePos = function(p) { return handleRemotePosition(p); };
   function handleRemotePosition(p) {
     if (!window.__takaSim || !window.__takaSim.bots) return;
 
@@ -298,10 +326,16 @@
       window.__takaSim.bots.push(bot);
       remotePlayers.set(p.id, bot);
 
-      // Attach 3D character model to scene if renderer is ready
       if (window.__takaRenderer && window.__takaRenderer.rigFactory && window.__takaRenderer.scene) {
         try {
           const rig = window.__takaRenderer.rigFactory.create();
+          // Enable X-Ray through walls for 3D model
+          rig.root.traverse(child => {
+            if (child.isMesh && child.material) {
+              child.material.depthTest = false;
+              child.renderOrder = 9999;
+            }
+          });
           window.__takaRenderer.posedRigs?.set(bot.entityId, rig);
           window.__takaRenderer.actors?.set(bot.entityId, rig.root);
           window.__takaRenderer.scene.add(rig.root);
@@ -338,7 +372,6 @@
   function handleRemoteShot(s) {
     if (!window.__takaRenderer || !window.__takaSim) return;
 
-    // Render the 3D tracer beam in the scene
     window.__takaRenderer.event({
       type: 'shot',
       actor: s.nid || hashString(s.id),
@@ -351,7 +384,6 @@
       time: window.__takaSim.time || (performance.now() / 1000)
     });
 
-    // 3D Spatial Gunshot Audio
     if (window.__takaAudio && window.__takaSim.player) {
       const pPos = window.__takaSim.player.body.position;
       const pYaw = window.__takaSim.player.yaw;
@@ -363,11 +395,10 @@
     }
   }
 
-  // 11. Hook into Local Game Events (When local player shoots/hits)
+  // 11. Hook into Local Game Events
   window.__takaOnGameEvent = function(e, sim) {
     if (!channel || !isSubscribed) return;
 
-    // Local weapon fired: broadcast shot instantly to all connected players!
     if (e.type === 'shot' && e.actor === 0) {
       channel.send({
         type: 'broadcast',
@@ -386,7 +417,6 @@
       });
     }
 
-    // Local hit on a remote player: broadcast hit
     if (e.type === 'hit' && e.actor === 0 && e.target) {
       channel.send({
         type: 'broadcast',
@@ -429,7 +459,7 @@
           knife: p.knife
         }
       });
-    }, 33); // ~30 times per second for smooth, zero-delay real-time networking
+    }, 33);
 
     // Smooth frame-by-frame interpolation for remote players
     function interpolateRemote() {
@@ -450,10 +480,253 @@
     requestAnimationFrame(interpolateRemote);
   }
 
-  // 13. Initialization Entrypoint
+  // 13. High-Precision ESP Wallhack & Player Locator Overlay
+  function startESP() {
+    const canvas = document.getElementById('taka-esp-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    function renderESP() {
+      requestAnimationFrame(renderESP);
+      purgeOfflineBots();
+
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const dpr = window.devicePixelRatio || 1;
+
+      if (canvas.width !== Math.floor(width * dpr) || canvas.height !== Math.floor(height * dpr)) {
+        canvas.width = Math.floor(width * dpr);
+        canvas.height = Math.floor(height * dpr);
+      }
+
+      ctx.save();
+      ctx.scale(dpr, dpr);
+      ctx.clearRect(0, 0, width, height);
+
+      if (!espEnabled) {
+        ctx.restore();
+        return;
+      }
+
+      const camera = window.__takaRenderer?.camera;
+      const localPlayer = window.__takaSim?.player;
+
+      if (!camera || !localPlayer) {
+        ctx.restore();
+        return;
+      }
+
+      camera.updateMatrixWorld?.();
+      const lp = localPlayer.body?.position;
+      if (!lp) {
+        ctx.restore();
+        return;
+      }
+
+      const targets = [];
+      for (const [id, bot] of remotePlayers.entries()) {
+        if (bot && bot.body?.position) {
+          targets.push(bot);
+        }
+      }
+
+      if (targets.length === 0) {
+        ctx.font = '700 11px monospace';
+        ctx.fillStyle = 'rgba(0, 255, 136, 0.75)';
+        ctx.textAlign = 'left';
+        ctx.fillText('📡 [ESP ACTIVE] WAITING FOR OTHER PLAYERS...', 18, height - 20);
+        ctx.restore();
+        return;
+      }
+
+      for (const bot of targets) {
+        const bp = bot.body.position;
+        const isAlive = (bot.health ?? 100) > 0;
+        if (!isAlive) continue;
+
+        const dx = bp.x - lp.x;
+        const dy = bp.y - lp.y;
+        const dz = bp.z - lp.z;
+        const distUnits = Math.hypot(dx, dy, dz);
+        const distMeters = Math.max(1, Math.round(distUnits * 0.0254));
+
+        const rig = window.__takaRenderer?.posedRigs?.get(bot.entityId);
+        if (rig && rig.root) {
+          rig.root.traverse(child => {
+            if (child.isMesh && child.material) {
+              child.material.depthTest = !espEnabled;
+              child.renderOrder = espEnabled ? 9999 : 0;
+            }
+          });
+        }
+
+        const isDuck = (bot.body.duck || 0) > 0.4;
+        const headOffset = isDuck ? 46 : 68;
+
+        const vFeet = camera.position.clone().set(bp.x, bp.y - 2, bp.z).project(camera);
+        const vHead = camera.position.clone().set(bp.x, bp.y + headOffset, bp.z).project(camera);
+        const vCenter = camera.position.clone().set(bp.x, bp.y + headOffset * 0.5, bp.z).project(camera);
+
+        const inFront = vCenter.z < 1.0;
+
+        const screenFeetX = (vFeet.x * 0.5 + 0.5) * width;
+        const screenFeetY = (-vFeet.y * 0.5 + 0.5) * height;
+        const screenHeadX = (vHead.x * 0.5 + 0.5) * width;
+        const screenHeadY = (-vHead.y * 0.5 + 0.5) * height;
+
+        const onScreen = inFront &&
+          screenFeetX >= -60 && screenFeetX <= width + 60 &&
+          screenFeetY >= -60 && screenFeetY <= height + 60;
+
+        if (onScreen) {
+          const boxHeight = Math.max(22, Math.abs(screenFeetY - screenHeadY));
+          const boxWidth = Math.max(12, boxHeight * 0.54);
+          const boxX = screenHeadX - boxWidth / 2;
+          const boxY = Math.min(screenHeadY, screenFeetY);
+
+          // 1. Tactical Snapline from Bottom-Center to Feet
+          ctx.beginPath();
+          ctx.moveTo(width / 2, height);
+          ctx.lineTo(screenFeetX, screenFeetY);
+          ctx.strokeStyle = 'rgba(0, 255, 136, 0.42)';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+
+          // 2. Corner Bracket Bounding Box
+          ctx.strokeStyle = '#00ff88';
+          ctx.lineWidth = 2;
+          ctx.shadowColor = '#00ff88';
+          ctx.shadowBlur = 6;
+
+          const cw = Math.min(boxWidth * 0.32, 14);
+          const ch = Math.min(boxHeight * 0.25, 14);
+
+          ctx.beginPath();
+          // Top-Left
+          ctx.moveTo(boxX, boxY + ch); ctx.lineTo(boxX, boxY); ctx.lineTo(boxX + cw, boxY);
+          // Top-Right
+          ctx.moveTo(boxX + boxWidth - cw, boxY); ctx.lineTo(boxX + boxWidth, boxY); ctx.lineTo(boxX + boxWidth, boxY + ch);
+          // Bottom-Left
+          ctx.moveTo(boxX, boxY + boxHeight - ch); ctx.lineTo(boxX, boxY + boxHeight); ctx.lineTo(boxX + cw, boxY + boxHeight);
+          // Bottom-Right
+          ctx.moveTo(boxX + boxWidth - cw, boxY + boxHeight); ctx.lineTo(boxX + boxWidth, boxY + boxHeight); ctx.lineTo(boxX + boxWidth, boxY + boxHeight - ch);
+          ctx.stroke();
+
+          // Subtle box tint
+          ctx.fillStyle = 'rgba(0, 255, 136, 0.08)';
+          ctx.fillRect(boxX, boxY, boxWidth, boxHeight);
+
+          // 3. Health Bar
+          const barX = boxX - 6;
+          const barWidth = 3;
+          const hp = Math.max(0, Math.min(100, bot.health ?? 100));
+          const hpRatio = hp / 100;
+          const fillH = boxHeight * hpRatio;
+
+          ctx.shadowBlur = 0;
+          ctx.fillStyle = 'rgba(10, 15, 25, 0.8)';
+          ctx.fillRect(barX - 1, boxY - 1, barWidth + 2, boxHeight + 2);
+          ctx.fillStyle = hpRatio > 0.5 ? '#22c55e' : (hpRatio > 0.2 ? '#f59e0b' : '#ef4444');
+          ctx.fillRect(barX, boxY + (boxHeight - fillH), barWidth, fillH);
+
+          // 4. Name Tag Above Head
+          ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+          ctx.textAlign = 'center';
+          const nameText = bot.name || 'Operative';
+          const nameW = ctx.measureText(nameText).width + 12;
+
+          ctx.fillStyle = 'rgba(10, 15, 25, 0.85)';
+          ctx.fillRect(screenHeadX - nameW / 2, boxY - 19, nameW, 16);
+          ctx.strokeStyle = 'rgba(0, 255, 136, 0.6)';
+          ctx.lineWidth = 1;
+          ctx.strokeRect(screenHeadX - nameW / 2, boxY - 19, nameW, 16);
+          ctx.fillStyle = '#00ff88';
+          ctx.fillText(nameText, screenHeadX, boxY - 7);
+
+          // 5. Distance & Weapon Below Feet
+          const subText = `${distMeters}m • ${bot.gun?.id?.toUpperCase() || 'AK47'}`;
+          ctx.font = 'bold 10px monospace';
+          const subW = ctx.measureText(subText).width + 8;
+
+          ctx.fillStyle = 'rgba(10, 15, 25, 0.85)';
+          ctx.fillRect(screenFeetX - subW / 2, boxY + boxHeight + 3, subW, 14);
+          ctx.fillStyle = '#f8fafc';
+          ctx.fillText(subText, screenFeetX, boxY + boxHeight + 14);
+
+        } else {
+          // OFF-SCREEN EDGE RADAR POINTER
+          let dirX = vCenter.x;
+          let dirY = -vCenter.y;
+          if (!inFront) {
+            dirX = -dirX;
+            dirY = -dirY;
+          }
+          const len = Math.hypot(dirX, dirY) || 1;
+          const normX = dirX / len;
+          const normY = dirY / len;
+
+          const margin = 50;
+          const hw = width / 2 - margin;
+          const hh = height / 2 - margin;
+          let edgeX = 0, edgeY = 0;
+          const slope = normY / (normX || 0.0001);
+
+          if (Math.abs(normX) * hh > Math.abs(normY) * hw) {
+            edgeX = normX > 0 ? hw : -hw;
+            edgeY = edgeX * slope;
+          } else {
+            edgeY = normY > 0 ? hh : -hh;
+            edgeX = edgeY / slope;
+          }
+
+          const px = width / 2 + edgeX;
+          const py = height / 2 + edgeY;
+          const angle = Math.atan2(normY, normX);
+
+          ctx.save();
+          ctx.translate(px, py);
+          ctx.rotate(angle);
+          ctx.fillStyle = '#00ff88';
+          ctx.shadowColor = '#00ff88';
+          ctx.shadowBlur = 8;
+          ctx.beginPath();
+          ctx.moveTo(10, 0);
+          ctx.lineTo(-8, -7);
+          ctx.lineTo(-3, 0);
+          ctx.lineTo(-8, 7);
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+
+          // Off-screen name & distance banner
+          ctx.shadowBlur = 0;
+          ctx.font = 'bold 11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+          const offText = `${bot.name || 'Operative'} [${distMeters}m]`;
+          const offW = ctx.measureText(offText).width + 12;
+          const offX = Math.max(margin, Math.min(width - margin - offW, px - offW / 2));
+          const offY = Math.max(margin + 16, Math.min(height - margin, py + (normY > 0 ? -14 : 20)));
+
+          ctx.fillStyle = 'rgba(15, 23, 42, 0.88)';
+          ctx.fillRect(offX, offY - 12, offW, 16);
+          ctx.strokeStyle = '#00ff88';
+          ctx.lineWidth = 1;
+          ctx.strokeRect(offX, offY - 12, offW, 16);
+          ctx.fillStyle = '#00ff88';
+          ctx.textAlign = 'left';
+          ctx.fillText(offText, offX + 6, offY);
+        }
+      }
+      ctx.restore();
+    }
+
+    requestAnimationFrame(renderESP);
+  }
+
+  // 14. Initialization Entrypoint
   function start() {
     updatePlayerBadge();
     initMultiplayer();
+    startESP();
     if (!localStorage.getItem('taka_username')) {
       promptUsernameIfNeeded();
     }

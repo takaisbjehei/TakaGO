@@ -444,6 +444,17 @@
     background: #c2410c;
   }
 
+  /* ESP Wallhack Canvas Overlay */
+  #taka-esp-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9998;
+    display: block;
+  }
+
   /* Top Bar (Fullscreen & Custom HUD) */
   #taka-top-controls {
     pointer-events: auto;
@@ -590,7 +601,10 @@
   <p style="margin:0;font-size:14px;color:#94a3b8;max-width:280px;">Please rotate your phone to landscape (horizontal) to play TakaGO.</p>
 </div>
 
-<!-- Top Bar: Online status, Callsign, Fullscreen & Custom HUD -->
+<!-- ESP Wallhack Canvas Overlay -->
+<canvas id="taka-esp-canvas"></canvas>
+
+<!-- Top Bar: Online status, Callsign, Fullscreen, ESP & Custom HUD -->
 <div id="taka-top-controls">
   <div class="taka-online-badge" title="Connected Players in Dust II">
     <span class="taka-live-dot"></span>
@@ -602,6 +616,10 @@
       <circle cx="12" cy="7" r="4"></circle>
     </svg>
     <span id="taka-callsign-badge">Player</span>
+  </button>
+  <button class="taka-top-btn" id="taka-btn-esp" type="button" onclick="window.__takaToggleESP&&window.__takaToggleESP()" title="Toggle Player ESP & Wallhack">
+    <span id="taka-esp-indicator" style="width:7px;height:7px;border-radius:50%;background:#00ff88;box-shadow:0 0 8px #00ff88;display:inline-block;"></span>
+    <span id="taka-esp-label">ESP: ON</span>
   </button>
   <button id="taka-btn-fullscreen" class="taka-top-btn" type="button" aria-label="Toggle Fullscreen">
     <svg id="taka-fs-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">

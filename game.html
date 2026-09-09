@@ -275,9 +275,9 @@
     -webkit-overflow-scrolling: touch;
   }
   canvas {
+    display: block;
     width: 100vw !important;
     height: 100vh !important;
-    object-fit: cover;
   }
 
   /* Horizontal landscape layout optimization for mobile */
@@ -447,12 +447,17 @@
   /* Top Bar (Fullscreen & Custom HUD) */
   #taka-top-controls {
     pointer-events: auto;
-    position: absolute;
+    position: fixed;
     top: 10px;
     left: 14px;
     display: flex;
     gap: 8px;
     z-index: 10000;
+  }
+  @media (hover: hover) and (pointer: fine) and (min-width: 1025px) {
+    #taka-btn-customize {
+      display: none !important;
+    }
   }
   .taka-top-btn {
     pointer-events: auto;
@@ -585,35 +590,35 @@
   <p style="margin:0;font-size:14px;color:#94a3b8;max-width:280px;">Please rotate your phone to landscape (horizontal) to play TakaGO.</p>
 </div>
 
-<div id="taka-mobile-controls">
-  <!-- Top Bar: Fullscreen & Custom HUD -->
-  <div id="taka-top-controls">
-    <div class="taka-online-badge" title="Connected Players in Dust II">
-      <span class="taka-live-dot"></span>
-      <span id="taka-online-count">1</span> ONLINE
-    </div>
-    <button class="taka-top-btn" id="taka-btn-callsign" type="button" onclick="window.__takaChangeCallsign&&window.__takaChangeCallsign()" title="Click to Change Callsign">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-        <circle cx="12" cy="7" r="4"></circle>
-      </svg>
-      <span id="taka-callsign-badge">Player</span>
-    </button>
-    <button id="taka-btn-fullscreen" class="taka-top-btn" type="button" aria-label="Toggle Fullscreen">
-      <svg id="taka-fs-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
-      </svg>
-      <span id="taka-fs-label">FULLSCREEN</span>
-    </button>
-    <button id="taka-btn-customize" class="taka-top-btn" type="button" aria-label="Customize Controls Layout">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 20h9"/>
-        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
-      </svg>
-      <span>CUSTOM HUD</span>
-    </button>
+<!-- Top Bar: Online status, Callsign, Fullscreen & Custom HUD -->
+<div id="taka-top-controls">
+  <div class="taka-online-badge" title="Connected Players in Dust II">
+    <span class="taka-live-dot"></span>
+    <span id="taka-online-count">1</span> ONLINE
   </div>
+  <button class="taka-top-btn" id="taka-btn-callsign" type="button" onclick="window.__takaChangeCallsign&&window.__takaChangeCallsign()" title="Click to Change Callsign">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+      <circle cx="12" cy="7" r="4"></circle>
+    </svg>
+    <span id="taka-callsign-badge">Player</span>
+  </button>
+  <button id="taka-btn-fullscreen" class="taka-top-btn" type="button" aria-label="Toggle Fullscreen">
+    <svg id="taka-fs-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+    </svg>
+    <span id="taka-fs-label">FULLSCREEN</span>
+  </button>
+  <button id="taka-btn-customize" class="taka-top-btn" type="button" aria-label="Customize Controls Layout">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 20h9"/>
+      <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+    </svg>
+    <span>CUSTOM HUD</span>
+  </button>
+</div>
 
+<div id="taka-mobile-controls">
   <!-- HUD Layout Customizer Toolbar (Active in edit mode) -->
   <div id="taka-hud-toolbar">
     <span class="hud-edit-tip">DRAG ANY BUTTON TO REPOSITION</span>

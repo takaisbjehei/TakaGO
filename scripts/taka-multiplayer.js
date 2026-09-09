@@ -26,20 +26,27 @@
   const myNumericId = hashString(myPlayerId);
 
   let myUsername = localStorage.getItem('taka_username') || '';
+  if (!myUsername) {
+    myUsername = 'Operator_' + (Math.floor(Math.random() * 900) + 100);
+  }
 
   // Remote Players state map
   const remotePlayers = new Map(); // id -> state
   let supabase = null;
   let channel = null;
+  let isSubscribed = false;
 
   // 2. First-Time Username Modal Management
   function promptUsernameIfNeeded(onComplete) {
-    if (myUsername && myUsername.trim().length > 0) {
+    const stored = localStorage.getItem('taka_username');
+    if (stored && stored.trim().length > 0) {
+      myUsername = stored.trim();
+      updatePlayerBadge();
       if (onComplete) onComplete(myUsername);
       return;
     }
 
-    const defaultName = 'Operator_' + (Math.floor(Math.random() * 900) + 100);
+    const defaultName = myUsername || ('Operator_' + (Math.floor(Math.random() * 900) + 100));
 
     // Create Modal DOM
     let modal = document.getElementById('taka-username-modal');
@@ -50,7 +57,7 @@
         <div class="taka-modal-backdrop">
           <div class="taka-modal-card">
             <div class="taka-modal-header">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ff7828" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff7828" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                 <circle cx="12" cy="7" r="4"></circle>
               </svg>
@@ -81,15 +88,18 @@
       localStorage.setItem('taka_username', myUsername);
       modal.style.display = 'none';
       updatePlayerBadge();
+      if (channel && isSubscribed) {
+        channel.track({ id: myPlayerId, name: myUsername });
+      }
       if (onComplete) onComplete(myUsername);
     };
   }
 
   // Allow clicking badge to change callsign anytime
   window.__takaChangeCallsign = function() {
-    myUsername = '';
+    localStorage.removeItem('taka_username');
     promptUsernameIfNeeded((name) => {
-      if (channel) {
+      if (channel && isSubscribed) {
         channel.track({ id: myPlayerId, name: name });
       }
     });
@@ -106,7 +116,7 @@
   function updateOnlineCount(count) {
     const el = document.getElementById('taka-online-count');
     if (el) {
-      el.textContent = count;
+      el.textContent = Math.max(1, count);
     }
   }
 
@@ -117,6 +127,8 @@
       setTimeout(initMultiplayer, 200);
       return;
     }
+
+    if (channel) return; // Already initializing or initialized
 
     try {
       supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -147,6 +159,16 @@
         const id = p.id || p.key;
         if (remotePlayers.has(id)) {
           const remote = remotePlayers.get(id);
+          // Remove 3D rig from renderer if present
+          if (window.__takaRenderer) {
+            const rig = window.__takaRenderer.posedRigs?.get(remote.entityId);
+            if (rig) {
+              window.__takaRenderer.scene?.remove(rig.root);
+              if (typeof rig.dispose === 'function') rig.dispose();
+              window.__takaRenderer.posedRigs?.delete(remote.entityId);
+              window.__takaRenderer.actors?.delete(remote.entityId);
+            }
+          }
           // Remove from engine bots
           if (window.__takaSim && window.__takaSim.bots) {
             const idx = window.__takaSim.bots.findIndex(b => b.remoteId === id);
@@ -189,18 +211,20 @@
               headshot: !!payload.headshot,
               weapon: payload.weapon || 'ak47'
             });
-            channel.send({
-              type: 'broadcast',
-              event: 'kill',
-              payload: {
-                killerId: payload.attackerId,
-                killerName: payload.attackerName,
-                victimId: myPlayerId,
-                victimName: myUsername,
-                weapon: payload.weapon || 'ak47',
-                headshot: !!payload.headshot
-              }
-            });
+            if (channel && isSubscribed) {
+              channel.send({
+                type: 'broadcast',
+                event: 'kill',
+                payload: {
+                  killerId: payload.attackerId,
+                  killerName: payload.attackerName,
+                  victimId: myPlayerId,
+                  victimName: myUsername,
+                  weapon: payload.weapon || 'ak47',
+                  headshot: !!payload.headshot
+                }
+              });
+            }
           }
         }
       }
@@ -222,6 +246,7 @@
 
     channel.subscribe((status) => {
       if (status === 'SUBSCRIBED') {
+        isSubscribed = true;
         channel.track({ id: myPlayerId, name: myUsername || 'Player' });
         console.log('[Multiplayer] Subscribed to room:', ROOM_NAME);
       }
@@ -249,6 +274,9 @@
           duck: p.duck || 0,
           grounded: true
         },
+        bodyPose: { phase: 0, time: 0, rate: 0 },
+        punch: { pitch: 0, yaw: 0, time: 0 },
+        intent: { forward: 0, right: 0, walk: false, duck: false, jump: false, yaw: p.yaw || 0 },
         targetPos: { x: p.pos.x, y: p.pos.y, z: p.pos.z },
         targetYaw: p.yaw || 0,
         targetPitch: p.pitch || 0,
@@ -269,6 +297,18 @@
       };
       window.__takaSim.bots.push(bot);
       remotePlayers.set(p.id, bot);
+
+      // Attach 3D character model to scene if renderer is ready
+      if (window.__takaRenderer && window.__takaRenderer.rigFactory && window.__takaRenderer.scene) {
+        try {
+          const rig = window.__takaRenderer.rigFactory.create();
+          window.__takaRenderer.posedRigs?.set(bot.entityId, rig);
+          window.__takaRenderer.actors?.set(bot.entityId, rig.root);
+          window.__takaRenderer.scene.add(rig.root);
+        } catch (err) {
+          console.warn('[Multiplayer] Failed to attach 3D rig:', err);
+        }
+      }
     } else {
       bot.name = p.name || bot.name;
       bot.targetPos = p.pos;
@@ -276,6 +316,10 @@
       bot.targetPitch = p.pitch;
       bot.body.duck = p.duck || 0;
       bot.health = p.health ?? bot.health;
+      if (bot.intent) {
+        bot.intent.yaw = p.yaw || 0;
+        bot.intent.duck = (p.duck || 0) > 0.5;
+      }
       if (p.vel) {
         bot.body.velocity.x = p.vel.x;
         bot.body.velocity.y = p.vel.y;
@@ -321,7 +365,7 @@
 
   // 11. Hook into Local Game Events (When local player shoots/hits)
   window.__takaOnGameEvent = function(e, sim) {
-    if (!channel) return;
+    if (!channel || !isSubscribed) return;
 
     // Local weapon fired: broadcast shot instantly to all connected players!
     if (e.type === 'shot' && e.actor === 0) {
@@ -362,7 +406,7 @@
   // 12. Outgoing Transform Broadcast Loop (30Hz)
   function startOutgoingBroadcastLoop() {
     setInterval(() => {
-      if (!channel || !window.__takaSim || !window.__takaSim.player) return;
+      if (!channel || !isSubscribed || !window.__takaSim || !window.__takaSim.player) return;
       const p = window.__takaSim.player;
       if (p.health <= 0) return;
 
@@ -407,16 +451,17 @@
   }
 
   // 13. Initialization Entrypoint
-  window.addEventListener('DOMContentLoaded', () => {
-    promptUsernameIfNeeded(() => {
-      initMultiplayer();
-    });
-  });
+  function start() {
+    updatePlayerBadge();
+    initMultiplayer();
+    if (!localStorage.getItem('taka_username')) {
+      promptUsernameIfNeeded();
+    }
+  }
 
-  // Also trigger if DOM is already loaded
-  if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    promptUsernameIfNeeded(() => {
-      initMultiplayer();
-    });
+  if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', start);
+  } else {
+    start();
   }
 })();

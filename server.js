@@ -46,7 +46,11 @@ const server = http.createServer((req, res) => {
   const parsedUrl = url.parse(req.url);
   let pathname = decodeURIComponent(parsedUrl.pathname);
 
-  // Route matching
+  // Support /_next/ rewrite to /assets/
+  if (pathname.startsWith('/_next/')) {
+    pathname = pathname.replace('/_next/', '/assets/');
+  }
+
   if (pathname === '/' || pathname === '') {
     pathname = '/index.html';
   } else if (pathname === '/game') {
@@ -55,7 +59,6 @@ const server = http.createServer((req, res) => {
 
   let filePath = path.join(PUBLIC_DIR, pathname);
 
-  // Prevent directory traversal
   if (!filePath.startsWith(PUBLIC_DIR)) {
     res.writeHead(403, { 'Content-Type': 'text/plain' });
     res.end('Forbidden');
@@ -64,7 +67,6 @@ const server = http.createServer((req, res) => {
 
   fs.stat(filePath, (err, stats) => {
     if (err || !stats.isFile()) {
-      // If file doesn't exist, check without .html or fallback to 404
       if (fs.existsSync(filePath + '.html')) {
         filePath = filePath + '.html';
       } else {

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/assets/static/css/index.DQMro-x2.css" data-rsc-css-href="/assets/static/css/index.DQMro-x2.css" data-precedence="vite-rsc/importer-resources"/><link rel="modulepreload" fetchPriority="low" href="/assets/static/chunks/index-DvPJKxM_.js"/><script src="/assets/static/chunks/rolldown-runtime-hePW80VL.js" type="module" async=""></script><script src="/assets/static/chunks/framework-DTZGTDtF.js" type="module" async=""></script><script src="/assets/static/chunks/vinext-CQtXKU73.js" type="module" async=""></script><link rel="modulepreload" href="/assets/static/chunks/layout-segment-context-BN63DWGi.js" crossorigin=""/><link rel="modulepreload" href="/assets/static/chunks/practice-preferences-DBknWEnW.js" crossorigin=""/><link rel="modulepreload" href="/assets/static/chunks/weapons-Dyd10l_R.js" crossorigin=""/><link rel="modulepreload" href="/assets/static/chunks/web-analytics-BWHnZ3rM.js" crossorigin=""/><link rel="modulepreload" href="/assets/static/chunks/page-CNLDno3t.js" crossorigin=""/><link rel="modulepreload" href="/assets/static/chunks/game-session-CqbXFUI7.js" crossorigin=""/><link rel="modulepreload" href="/assets/static/chunks/audio-CzhSlGPx.js" crossorigin=""/><link rel="modulepreload" href="/assets/static/chunks/movement-DJLQ03Os.js" crossorigin=""/><title>TakaGO — Counter-Strike Practice Lab</title><meta name="description" content="Instant browser aim practice, spray training, and a single-player bot arena with CS2-informed mechanics."/><link rel="icon" href="/favicon.svg?v=csanywhere"/><script>Object.assign(((self[Symbol.for("vinext.navigationRuntime")]??={bootstrap:{routeManifest:null},functions:{}}).bootstrap.rsc??={rsc:[]}),{params:{},nav:{"pathname":"/game","searchParams":[]},searchParamsFromBrowser:true})</script><link rel="modulepreload" href="/assets/static/chunks/index-DvPJKxM_.js" />
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/><link rel="stylesheet" href="/assets/static/css/index.DQMro-x2.css" data-rsc-css-href="/assets/static/css/index.DQMro-x2.css" data-precedence="vite-rsc/importer-resources"/><link rel="modulepreload" fetchPriority="low" href="/assets/static/chunks/index-DvPJKxM_.js"/><script src="/assets/static/chunks/rolldown-runtime-hePW80VL.js" type="module" async=""></script><script src="/assets/static/chunks/framework-DTZGTDtF.js" type="module" async=""></script><script src="/assets/static/chunks/vinext-CQtXKU73.js" type="module" async=""></script><link rel="modulepreload" href="/assets/static/chunks/layout-segment-context-BN63DWGi.js" crossorigin=""/><link rel="modulepreload" href="/assets/static/chunks/practice-preferences-DBknWEnW.js" crossorigin=""/><link rel="modulepreload" href="/assets/static/chunks/weapons-Dyd10l_R.js" crossorigin=""/><link rel="modulepreload" href="/assets/static/chunks/web-analytics-BWHnZ3rM.js" crossorigin=""/><link rel="modulepreload" href="/assets/static/chunks/page-CNLDno3t.js" crossorigin=""/><link rel="modulepreload" href="/assets/static/chunks/game-session-CqbXFUI7.js" crossorigin=""/><link rel="modulepreload" href="/assets/static/chunks/audio-CzhSlGPx.js" crossorigin=""/><link rel="modulepreload" href="/assets/static/chunks/movement-DJLQ03Os.js" crossorigin=""/><title>TakaGO — Counter-Strike Practice Lab</title><meta name="description" content="Instant browser aim practice, spray training, and a single-player bot arena with CS2-informed mechanics."/><link rel="icon" href="/favicon.svg?v=csanywhere"/><script>Object.assign(((self[Symbol.for("vinext.navigationRuntime")]??={bootstrap:{routeManifest:null},functions:{}}).bootstrap.rsc??={rsc:[]}),{params:{},nav:{"pathname":"/game","searchParams":[]},searchParamsFromBrowser:true})</script><link rel="modulepreload" href="/assets/static/chunks/index-DvPJKxM_.js" />
 <link rel="preload" href="/assets/static/_vinext_fonts/geist-8ac0455e797f/geist-98bbbccb.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/static/_vinext_fonts/geist-mono-00e989178794/geist-mono-013b2f2f.woff2" as="font" type="font/woff2" crossorigin />
 <style data-vinext-fonts>/* cyrillic-ext */
@@ -261,7 +261,113 @@
     border-color: rgba(229, 231, 235, 0.5);
     font-size: 11px;
   }
+
+  /* Full-bleed mobile auto-fit */
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    touch-action: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  canvas {
+    width: 100vw !important;
+    height: 100vh !important;
+    object-fit: cover;
+  }
+
+  /* Horizontal landscape layout optimization for mobile */
+  @media (max-height: 520px) and (orientation: landscape) {
+    #taka-joystick-base {
+      bottom: 15px;
+      left: 20px;
+      width: 115px;
+      height: 115px;
+    }
+    #taka-joystick-thumb {
+      width: 50px;
+      height: 50px;
+    }
+    #taka-btn-fire {
+      bottom: 25px;
+      right: 20px;
+      width: 68px;
+      height: 68px;
+      font-size: 13px;
+    }
+    #taka-btn-scope {
+      bottom: 105px;
+      right: 25px;
+      width: 50px;
+      height: 50px;
+      font-size: 11px;
+    }
+    #taka-btn-jump {
+      bottom: 25px;
+      right: 98px;
+      width: 54px;
+      height: 54px;
+      font-size: 12px;
+    }
+    #taka-btn-crouch {
+      bottom: 90px;
+      right: 86px;
+      width: 50px;
+      height: 50px;
+      font-size: 10px;
+    }
+    #taka-btn-reload {
+      bottom: 165px;
+      right: 28px;
+      width: 44px;
+      height: 44px;
+      font-size: 10px;
+    }
+  }
+
+  /* Portrait rotation banner to prompt playing in horizontal */
+  @media screen and (orientation: portrait) and (max-width: 900px) {
+    #taka-rotate-prompt {
+      display: flex !important;
+    }
+  }
+  #taka-rotate-prompt {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: rgba(10, 15, 25, 0.96);
+    color: #ffffff;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  #taka-rotate-prompt .rotate-icon {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 16px;
+    animation: taka-rotate-spin 2s ease-in-out infinite alternate;
+  }
+  @keyframes taka-rotate-spin {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(-90deg); }
+    100% { transform: rotate(-90deg); }
+  }
 </style>
+
+<div id="taka-rotate-prompt">
+  <svg class="rotate-icon" viewBox="0 0 24 24" fill="none" stroke="#ff7828" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+    <path d="M12 18h.01"></path>
+  </svg>
+  <h2 style="margin:0 0 8px;font-size:20px;font-weight:700;">Rotate Device</h2>
+  <p style="margin:0;font-size:14px;color:#94a3b8;max-width:280px;">Please rotate your phone to landscape (horizontal) to play TakaGO.</p>
+</div>
 
 <div id="taka-mobile-controls">
   <!-- Joystick Base & Thumb -->
@@ -276,7 +382,7 @@
   <button id="taka-btn-fire" class="taka-action-btn" type="button">FIRE</button>
   <button id="taka-btn-scope" class="taka-action-btn" type="button">SCOPE</button>
   <button id="taka-btn-jump" class="taka-action-btn" type="button">JUMP</button>
-  <button id="taka-btn-crouch" class="taka-action-btn" type="button">CROUCH<br><span style="font-size:9px;opacity:0.85;">-77% SPREAD</span></button>
+  <button id="taka-btn-crouch" class="taka-action-btn" type="button">CROUCH</button>
   <button id="taka-btn-reload" class="taka-action-btn" type="button">RELOAD</button>
 </div>
 

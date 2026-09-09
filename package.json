@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Counter-Strike Practice Lab",
   "scripts": {
+    "build": "echo ready",
     "dev": "node scripts/local-server.js"
   },
   "keywords": ["counter-strike", "dust2", "fps", "webgl", "threejs"],
